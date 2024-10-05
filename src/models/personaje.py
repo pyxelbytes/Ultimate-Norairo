@@ -3,31 +3,46 @@ import random
 
 class Personaje():
 
-    def __init__(self, nombre, vida = 500, pos_x = 0, pos_y = 241, sprite = "normal"):
+    def __init__(self, nombre, vida = 500, pos_x = 0, pos_y = 388, sprite = "normal", hit_alto = 240, hit_ancho = 180):
         self.nombre = nombre
         self.vida = vida
         self.pos_x = pos_x
         self.pos_y = pos_y
-        self.hitbox = pygame.Rect((self.pos_x, self.pos_y, 280, 180)) #Generando el cuadrado de colisiones
+        self.hit_alto = hit_alto
+        self.hit_ancho = hit_ancho
+        self.hitbox = pygame.Rect((self.pos_x, self.pos_y, self.hit_alto - 60, self.hit_ancho)) #Generando el cuadrado de colisiones
+        self.hitbox_pegar = pygame.Rect((self.pos_x, self.pos_y, self.hit_alto, self.hit_ancho)) #Generando el cuadrado de colisiones
         self.sprite = sprite
+        self.saltando = False
+        self.pegando = False
+        self.pateando = False
 
 
-    def mover(self, mov_x, ancho = True, player_1 = True):
+    def saltar(self, mov_y):
+        self.pos_y += mov_y
+        self.hitbox.y = self.pos_y
+
+    def mover(self, mov_x, player_1 = True):
         self.pos_x += mov_x
         self.hitbox.x = self.pos_x
+        self.hitbox_pegar.x = self.pos_x
+        
 
         
-    def golpear(self, otro):
+    def golpear(self, otro, verificacion_golpe = False):
         self.sprite = "golpe"
-        dano = random.randint(5, 20)
-        otro.vida -= dano
-        return dano
+        if verificacion_golpe:
+            dano = random.randint(5, 20)
+            otro.vida -= dano
+            return dano
+        return None
 
-    def patear(self, otro):
+    def patear(self, otro, verificacion_patada = False):
         self.sprite = "patada"
-        dano = random.randint(5, 20)
-        otro.vida -= dano
-        return dano
+        if verificacion_patada:
+            dano = random.randint(5, 20)
+            otro.vida -= dano
+        return None
 
     def ataque_especial(self, otro):
         dano = random.randit(20, 40)

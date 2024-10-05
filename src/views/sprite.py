@@ -14,3 +14,4 @@ class Sprite():
 
 class Fondo():
     linea = pygame.image.load("src/views/img/Fondos/linea.PNG")
+    generic = pygame.image.load("src/views/img/Fondos/generic.jpg")

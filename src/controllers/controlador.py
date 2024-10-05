@@ -44,7 +44,20 @@ class Controlador():
             #Mover, caso se haya pulsado la tecla
             Teclas.mover(self.personaje1, self.ancho)
             Teclas.mover(self.personaje2, self.ancho, False) #Se envia un false para desactivar player1
-            
+
+            #Saltar, caso se haya pulsado la tecla
+            Teclas.saltar(self.personaje1, self.ancho)
+            Teclas.saltar(self.personaje2, self.ancho, False)
+
+            #Verificacion del golpe
+            if self.lista_de_jugadores[0].hitbox_pegar.right >= self.lista_de_jugadores[1].hitbox.left + 100:
+                Teclas.golpear(self.personaje1, self.personaje2, True)
+                Teclas.patear(self.personaje1, self.personaje2, True)
+
+            elif self.lista_de_jugadores[1].hitbox_pegar.right <= self.lista_de_jugadores[0].hitbox.left + 90:
+                Teclas.golpear(self.personaje2, self.personaje1, True)
+                Teclas.patear(self.personaje1, self.personaje2, True)
+
             
 
             # Verificar si algún jugador ha sido derrotado
