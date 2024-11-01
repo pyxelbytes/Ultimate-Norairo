@@ -1,17 +1,21 @@
 import pygame
 from ..views.vista import Vista
+from ..views.sound.sonido import Sonido
 
 
 class Teclas():
 
     @classmethod
     def golpear(cls, personaje1,  personaje2, verificacion_golpear = False):
+
         personaje1.sprite = "normal" #para que vuelva a la normalidad, despues de golpear
         personaje2.sprite = "normal"
 
         #Golpes
         teclas = pygame.key.get_pressed() #Tecla presionada
         if teclas[pygame.K_q]:  # Golpe del jugador 1
+            Sonido.sonido_golpear()
+
             if verificacion_golpear:
                 dano = personaje1.golpear(personaje2, verificacion_golpear)
                 print(f"{personaje1.nombre} golpea a {personaje2.nombre} causando {dano} de daño.")
@@ -19,6 +23,8 @@ class Teclas():
                 dano = personaje1.golpear(personaje2, verificacion_golpear)
 
         if teclas[pygame.K_KP7]:  # Golpe del jugador 2
+            Sonido.sonido_golpear()
+
             if verificacion_golpear:
                 dano = personaje2.golpear(personaje1, verificacion_golpear)
                 print(f"{personaje2.nombre} golpea a {personaje1.nombre} causando {dano} de daño.")
@@ -30,10 +36,13 @@ class Teclas():
     def patear(cls, personaje1,  personaje2, verificacion_patear = False):
         #personaje1.sprite = "normal" #para que vuelva a la normalidad, despues de golpear
         #personaje2.sprite = "normal"
+    
 
         #Patadas
         teclas = pygame.key.get_pressed() #Tecla presionada
         if teclas[pygame.K_e]:  # Golpe del jugador 1
+            Sonido.sonido_patear()
+
             if verificacion_patear:
                 dano = personaje1.patear(personaje2, verificacion_patear)
                 print(f"{personaje1.nombre} patea a {personaje2.nombre} causando {dano} de daño.")
@@ -41,8 +50,10 @@ class Teclas():
                 dano = personaje1.patear(personaje2, verificacion_patear)
             
         if teclas[pygame.K_KP9]:  # Golpe del jugador 2
+            Sonido.sonido_patear()
+            
             if  verificacion_patear:
-                dano = personaje2.patear(personaje1)
+                dano = personaje2.patear(personaje1, verificacion_patear)
                 print(f"{personaje2.nombre} patea a {personaje1.nombre} causando {dano} de daño.")
             else:
                 dano = personaje2.patear(personaje1, verificacion_patear)

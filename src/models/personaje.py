@@ -1,5 +1,6 @@
 import pygame
 import random
+from ..views.sound.sonido import Sonido
 
 class Personaje():
 
@@ -30,7 +31,12 @@ class Personaje():
 
         
     def golpear(self, otro, verificacion_golpe = False):
+   
+        #Cambiando de sprite
         self.sprite = "golpe"
+
+        Sonido.sonido_golpear()
+
         if verificacion_golpe:
             dano = random.randint(5, 20)
             otro.vida -= dano
@@ -38,7 +44,9 @@ class Personaje():
         return None
 
     def patear(self, otro, verificacion_patada = False):
+        #sprite de patada
         self.sprite = "patada"
+
         if verificacion_patada:
             dano = random.randint(5, 20)
             otro.vida -= dano

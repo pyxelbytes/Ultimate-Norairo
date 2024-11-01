@@ -6,6 +6,7 @@ from .teclas import Teclas
 #Importando los modelos y la parte visual
 from ..models.personaje import Personaje
 from ..views.vista import Vista
+from ..views.sound.sonido import Sonido
 
 
 class Controlador():
@@ -16,7 +17,7 @@ class Controlador():
         self.fps = 20
 
         self.personaje1 = Personaje("Mincho")
-        self.personaje2 = Personaje("Roberth", pos_x = 800)
+        self.personaje2 = Personaje("Rodrigo", pos_x = 800)
 
         self.vista = Vista(self.ancho, self.alto)
         self.lista_de_jugadores = [self.personaje1, self.personaje2]
@@ -27,12 +28,15 @@ class Controlador():
         juego_activo = True
         reloj = pygame.time.Clock()
 
+        Sonido.musica_fondo()
+
         while juego_activo:
 
             #Se indica para salir del juego
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT:
                     juego_activo = False
+
 
 
             #Golpear, caso se haya pulsado la tecla
@@ -62,6 +66,8 @@ class Controlador():
 
             # Verificar si algún jugador ha sido derrotado
             if not self.personaje1.esta_vivo() or not self.personaje2.esta_vivo():
+                patear_sonido = pygame.mixer.Sound("src/views/sound/sonidos_golpe/grito.mp3")
+                patear_sonido.play(1)
                 self.vista.game_over = True
                 print("¡El juego ha terminado!")
                 #juego_activo = False

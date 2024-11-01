@@ -20,7 +20,7 @@ class Vista():
 
     def dibujar(self, personajes): #personajes tiene que ser un a lista
         self.pantalla.fill(Color.negro)
-        fondo_escalado = pygame.transform.scale(Fondo.linea, (self.ancho, self.alto))
+        fondo_escalado = pygame.transform.scale(Fondo.Fondo_Choice(), (self.ancho, self.alto))
         self.pantalla.blit(fondo_escalado, (0, 0))
 
         for personaje in personajes:
